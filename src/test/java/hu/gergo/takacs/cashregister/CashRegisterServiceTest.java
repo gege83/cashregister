@@ -21,7 +21,7 @@ public class CashRegisterServiceTest {
     public void getBlockIfNoItem() throws Exception {
         //given
         List<Item> items = Collections.emptyList();
-        List<BlockItem> expected = Collections.singletonList(new TotalBlockItem(0));
+        List<BlockItem> expected = Collections.singletonList(createTotalBlockItem(0));
         //when
         List<BlockItem> actual = underTest.getBlock(items);
         //then
@@ -31,19 +31,32 @@ public class CashRegisterServiceTest {
     @Test
     public void getBlockIfOneItem() throws Exception {
         //given
-        String name = "name";
         double unitPrice = 2.1;
-        double quantity = 2;
-        ItemDescription itemDescription = new ItemDescription(name, unitPrice);
-        Item item = new Item(itemDescription, quantity);
+        double quantity = 2D;
+        Item item = createItem("name", unitPrice, quantity);
         List<Item> items = Collections.singletonList(item);
         List<BlockItem> expected = Arrays.asList(
-                new PricedItem(item, 4.2),
-                new TotalBlockItem(4.2)
+                createPricedItem(item, 4.2),
+                createTotalBlockItem(4.2)
         );
         //when
         List<BlockItem> actual = underTest.getBlock(items);
         //then
         assertEquals(expected, actual);
     }
+
+    private TotalBlockItem createTotalBlockItem(double total) {
+        return new TotalBlockItem(total);
+    }
+
+    private PricedItem createPricedItem(Item item, double price) {
+        return new PricedItem(item, price);
+    }
+
+    private Item createItem(String name, double unitPrice, double quantity) {
+        ItemDescription itemDescription = new ItemDescription(name, unitPrice);
+        return new Item(itemDescription, quantity);
+    }
+
+
 }
