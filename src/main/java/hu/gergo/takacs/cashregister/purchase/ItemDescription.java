@@ -1,4 +1,4 @@
-package hu.gergo.takacs.cashregister;
+package hu.gergo.takacs.cashregister.purchase;
 
 public class ItemDescription {
     private final String name;

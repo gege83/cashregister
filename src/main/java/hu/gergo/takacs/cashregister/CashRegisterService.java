@@ -1,5 +1,10 @@
 package hu.gergo.takacs.cashregister;
 
+import hu.gergo.takacs.cashregister.block.BlockItem;
+import hu.gergo.takacs.cashregister.block.PricedItem;
+import hu.gergo.takacs.cashregister.block.TotalBlockItem;
+import hu.gergo.takacs.cashregister.purchase.Item;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

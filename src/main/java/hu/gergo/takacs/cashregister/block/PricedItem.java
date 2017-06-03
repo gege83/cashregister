@@ -1,4 +1,6 @@
-package hu.gergo.takacs.cashregister;
+package hu.gergo.takacs.cashregister.block;
+
+import hu.gergo.takacs.cashregister.purchase.Item;
 
 public class PricedItem implements BlockItem {
     private final Item item;

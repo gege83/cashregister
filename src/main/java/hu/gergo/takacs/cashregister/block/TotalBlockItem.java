@@ -1,4 +1,4 @@
-package hu.gergo.takacs.cashregister;
+package hu.gergo.takacs.cashregister.block;
 
 public class TotalBlockItem implements BlockItem {
     private double total;
