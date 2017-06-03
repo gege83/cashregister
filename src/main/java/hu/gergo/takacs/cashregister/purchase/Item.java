@@ -1,16 +1,16 @@
 package hu.gergo.takacs.cashregister.purchase;
 
 public class Item {
-    private final ItemDescription itemDescription;
+    private final Sku sku;
     private final double quantity;
 
-    public Item(ItemDescription itemDescription, double quantity) {
-        this.itemDescription = itemDescription;
+    public Item(Sku sku, double quantity) {
+        this.sku = sku;
         this.quantity = quantity;
     }
 
-    public ItemDescription getItemDescription() {
-        return itemDescription;
+    public Sku getSku() {
+        return sku;
     }
 
     public double getQuantity() {
@@ -25,14 +25,14 @@ public class Item {
         Item item = (Item) o;
 
         if (Double.compare(item.quantity, quantity) != 0) return false;
-        return itemDescription != null ? itemDescription.equals(item.itemDescription) : item.itemDescription == null;
+        return sku != null ? sku.equals(item.sku) : item.sku == null;
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = itemDescription != null ? itemDescription.hashCode() : 0;
+        result = sku != null ? sku.hashCode() : 0;
         temp = Double.doubleToLongBits(quantity);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
@@ -41,7 +41,7 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "itemDescription=" + itemDescription +
+                "sku=" + sku +
                 ", quantity=" + quantity +
                 '}';
     }

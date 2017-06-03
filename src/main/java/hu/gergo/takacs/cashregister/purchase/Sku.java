@@ -1,11 +1,11 @@
 package hu.gergo.takacs.cashregister.purchase;
 
-public class ItemDescription {
+public class Sku {
     private final String name;
     private final double unitPrice;
 
-    public ItemDescription(String name, double unitPrice) {
-        this.name = name;
+    public Sku(String id, double unitPrice) {
+        this.name = id;
         this.unitPrice = unitPrice;
     }
 
@@ -22,7 +22,7 @@ public class ItemDescription {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ItemDescription that = (ItemDescription) o;
+        Sku that = (Sku) o;
 
         if (Double.compare(that.unitPrice, unitPrice) != 0) return false;
         return name != null ? name.equals(that.name) : that.name == null;
@@ -40,7 +40,7 @@ public class ItemDescription {
 
     @Override
     public String toString() {
-        return "ItemDescription{" +
+        return "Sku{" +
                 "name='" + name + '\'' +
                 ", unitPrice=" + unitPrice +
                 '}';
