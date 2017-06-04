@@ -53,19 +53,14 @@ PricedItemBlockItem - price for individual items
 - item - Item
 - price - double
 
-SubTotalBlockItem - holds the total value
-- total - double - rounded to 3 decimal items
-
 DiscountBlockItem - holds the discounted item count and the discount 
 - sku - Sku
 - discounted sku quantity - double
 - total discount - double (should be negative)
 
-DiscountTotalBlockItem - summary for the discounts
+TotalBlockItem - this item holds some kind of total
 - total - double
-
-TotalBlockItem - holds the final price
-- total
+- type - total type (grand, sub, discount)
 
 Checkout service
 ----------------
