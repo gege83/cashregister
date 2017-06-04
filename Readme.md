@@ -23,9 +23,9 @@ Assumptions
 
 - as this is a kata i will implement only the business logic
 - all data is valid and preprocessed - no null values
-- during the recording process i item can occur multiple times with quantities
+- during the recording process item can occur multiple times with quantities e.g.: SkuA * 7 + SkuB * 1 + SkuA * 2
 - quantity can be a float number
-- multiple offers will be allowed in the same time
+- one item can be used for the multiple offers
 
 ### input objects/interfaces
 Sku:
