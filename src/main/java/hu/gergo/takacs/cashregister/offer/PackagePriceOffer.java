@@ -1,5 +1,6 @@
 package hu.gergo.takacs.cashregister.offer;
 
+import hu.gergo.takacs.cashregister.RoundUtil;
 import hu.gergo.takacs.cashregister.block.DiscountBlockItem;
 import hu.gergo.takacs.cashregister.purchase.Sku;
 
@@ -30,17 +31,17 @@ public class PackagePriceOffer implements Offer {
         return new DiscountBlockItem(sku, discountedQuantity, discountTotal);
     }
 
+    private int getPackageCount(Double itemQuantity) {
+        return (int) Math.floor(itemQuantity / quantity);
+    }
+
     private double getDiscountedQuantity(int packageCount) {
         return quantity * packageCount;
     }
 
     private double calculateDiscountTotal(int packageCount, double discountedQuantity) {
         double total = packageCount * discountPrice - sku.getUnitPrice() * discountedQuantity;
-        total = Math.round(total * 1000.) / 1000.;
+        total = RoundUtil.roundToBusinessDecimal(total);
         return total;
-    }
-
-    private int getPackageCount(Double itemQuantity) {
-        return (int) Math.floor(itemQuantity / quantity);
     }
 }
