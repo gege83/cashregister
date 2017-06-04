@@ -71,10 +71,10 @@ public class CheckoutServiceTest {
         List<BlockItem> expected = Arrays.asList(
                 createPricedItem(itemA, 9.3),
                 createPricedItem(itemB, 35),
-                new SubTotalBlockItem(44.3),
+                new TotalBlockItem(44.3, BlockTotalType.SUB_TOTAL),
                 new DiscountBlockItem(itemA.getSku(), 2, -1.7),
                 new DiscountBlockItem(itemB.getSku(), 10, -5),
-                new DiscountTotalBlockItem(-6.7),
+                new TotalBlockItem(-6.7, BlockTotalType.DISCOUNT_TOTAL),
                 createTotalBlockItem(37.6)
         );
         List<Offer> offers = Arrays.asList(
@@ -88,7 +88,7 @@ public class CheckoutServiceTest {
     }
 
     private TotalBlockItem createTotalBlockItem(double total) {
-        return new TotalBlockItem(total);
+        return new TotalBlockItem(total, BlockTotalType.GRAND_TOTAL);
     }
 
     private PricedItem createPricedItem(Item item, double price) {

@@ -15,16 +15,16 @@ public class CheckoutService {
         List<BlockItem> pricedItems = items.stream()
                 .map(item -> new PricedItem(item, calculatePrice(item)))
                 .collect(Collectors.toList());
-        SubTotalBlockItem subTotalBlockItem = getSubTotal(pricedItems);
+        TotalBlockItem subTotalBlockItem = getSubTotal(pricedItems);
         List<DiscountBlockItem> discounts = calculateDiscounts(items, offers);
-        DiscountTotalBlockItem discountTotal = getDiscountTotal(discounts);
-        TotalBlockItem totalBlockItem = calculateTotal(subTotalBlockItem, discountTotal);
+        TotalBlockItem discountTotal = getDiscountTotal(discounts);
+        TotalBlockItem grandTotalBlockItem = calculateTotal(subTotalBlockItem, discountTotal);
         if (!discounts.isEmpty()) {
             pricedItems.add(subTotalBlockItem);
             pricedItems.addAll(discounts);
             pricedItems.add(discountTotal);
         }
-        pricedItems.add(totalBlockItem);
+        pricedItems.add(grandTotalBlockItem);
         return pricedItems;
     }
 
@@ -38,14 +38,14 @@ public class CheckoutService {
         return discountBlockItems;
     }
 
-    private DiscountTotalBlockItem getDiscountTotal(List<DiscountBlockItem> discounts) {
+    private TotalBlockItem getDiscountTotal(List<DiscountBlockItem> discounts) {
         double total = getSum(discounts);
-        return new DiscountTotalBlockItem(total);
+        return new TotalBlockItem(total, BlockTotalType.DISCOUNT_TOTAL);
     }
 
-    private SubTotalBlockItem getSubTotal(List<BlockItem> blockItems) {
+    private TotalBlockItem getSubTotal(List<BlockItem> blockItems) {
         double total = getSum(blockItems);
-        return new SubTotalBlockItem(total);
+        return new TotalBlockItem(total, BlockTotalType.SUB_TOTAL);
     }
 
     private double getSum(List<? extends BlockItem> blockItems) {
@@ -56,9 +56,9 @@ public class CheckoutService {
         return item.getQuantity() * item.getSku().getUnitPrice();
     }
 
-    private TotalBlockItem calculateTotal(SubTotalBlockItem subTotalBlockItem, DiscountTotalBlockItem discountTotalBlockItem) {
+    private TotalBlockItem calculateTotal(TotalBlockItem subTotalBlockItem, TotalBlockItem discountTotalBlockItem) {
         double total = subTotalBlockItem.getPrice() + discountTotalBlockItem.getPrice();
         total = Math.round(total * 1000.) / 1000.;
-        return new TotalBlockItem(total);
+        return new TotalBlockItem(total, BlockTotalType.GRAND_TOTAL);
     }
 }

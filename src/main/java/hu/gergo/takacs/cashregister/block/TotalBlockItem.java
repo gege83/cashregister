@@ -2,9 +2,11 @@ package hu.gergo.takacs.cashregister.block;
 
 public class TotalBlockItem implements BlockItem {
     private double total;
+    private BlockTotalType type;
 
-    public TotalBlockItem(double total) {
+    public TotalBlockItem(double total, BlockTotalType type) {
         this.total = total;
+        this.type = type;
     }
 
     @Override
@@ -19,19 +21,25 @@ public class TotalBlockItem implements BlockItem {
 
         TotalBlockItem that = (TotalBlockItem) o;
 
-        return Double.compare(that.total, total) == 0;
+        if (Double.compare(that.total, total) != 0) return false;
+        return type == that.type;
     }
 
     @Override
     public int hashCode() {
-        long temp = Double.doubleToLongBits(total);
-        return (int) (temp ^ (temp >>> 32));
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(total);
+        result = (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "TotalBlockItem{" +
                 "total=" + total +
+                ", type=" + type +
                 '}';
     }
 }
